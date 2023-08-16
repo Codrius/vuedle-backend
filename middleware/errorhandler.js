@@ -1,5 +1,5 @@
 function user(error) {
-    console.log(error.message, error.code);
+    console.log("Error creating new user: ", error.message);
     let errors = { username: "", password: "" }
 
     if (error.code === 11000) {
