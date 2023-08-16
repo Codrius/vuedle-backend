@@ -1,6 +1,7 @@
-const express = require("express");
+const loginpost = require("../middleware/loginpost.js");
 
 function login(app) {
+    app.post("/login", loginpost)
     console.log("Login loaded");
 }
 
