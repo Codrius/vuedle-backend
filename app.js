@@ -10,11 +10,11 @@ const PORT = process.env.PORT;
 // Set up cors headers
 setCors(app);
 
-// Connect to MongoDB
-initializeMongo();
-
 // Initialize all of the routes inside of index.js
 initializeRoutes(app, PORT);
 
-// Start the server
+// Connect to MongoDB
+initializeMongo()
+
+// Start Server
 initializeServer(app, PORT);

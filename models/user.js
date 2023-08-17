@@ -25,9 +25,23 @@ const UserSchema = new Schema({
 
 // Before saving a new user to mongo, hash their password
 UserSchema.pre("save", async function (next) {
-    this.password = await bcrypt.hash(this.password, process.env.SALT);
+    const salt = await bcrypt.genSalt();
+    this.password = await bcrypt.hash(this.password, salt);
     next();
 });
+
+// Define static login function
+UserSchema.statics.login = async function (email, password) {
+    const user = await this.findOne({ email });
+    if (user) {
+        const auth = await bcrypt.compare(password, user.password);
+        if (auth) {
+            return user
+        }
+        throw Error("Email and password do not match")
+    }
+    throw Error("Email does not exist")
+}
 
 const User = mongoose.model("user", UserSchema);
 

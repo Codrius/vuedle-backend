@@ -17,15 +17,23 @@ async function registerPost(req, res) {
         const user = await User.create({ email, username, password });
         const token = createToken(user._id);
         res.cookie("jwt", token, { httpOnly: true, maxAge: JWT_AGE * 1000 })
-        res.status(201).json({ token, id: user._id });
+        res.status(201).json({ id: user._id });
     } catch (error) {
         res.status(400).json(errorHandler.user(error));
     }
 }
 
 // Define the login post function for use in auth routes
-function loginPost(req, res) {
-    console.log(req, res);
+async function loginPost(req, res) {
+    const { email, password } = req.body;
+    try {
+        const user = await User.login(email, password);
+        const token = createToken(user._id);
+        res.cookie("jwt", token, { httpOnly: true, maxAge: JWT_AGE * 1000 })
+        res.status(200).json({ email: user.email, id: user._id })
+    } catch (error) {
+        res.status(400).json(errorHandler.user(error));
+    }
 }
 
 module.exports = { loginPost, registerPost };
