@@ -1,12 +1,19 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
+const { isEmail } = require("validator");
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
+    email: {
+        type: String,
+        required: [true, "Please enter an email"],
+        unique: true,
+        lowercase: true,
+        validate: [isEmail, "Please enter a valid email"]
+    },
     username: {
         type: String,
         required: [true, "Please enter a username"],
-        unique: true,
         lowercase: true
     },
     password: {
@@ -16,9 +23,9 @@ const UserSchema = new Schema({
     }
 });
 
+// Before saving a new user to mongo, hash their password
 UserSchema.pre("save", async function (next) {
-    const salt = await bcrypt.genSalt();
-    this.password = await bcrypt.hash(this.password, salt);
+    this.password = await bcrypt.hash(this.password, process.env.SALT);
     next();
 });
 

@@ -1,9 +1,9 @@
 function user(error) {
     console.log("Error creating new user: ", error.message);
-    let errors = { username: "", password: "" }
+    let errors = { email: "", username: "", password: "" }
 
     if (error.code === 11000) {
-        errors.username = "Username already exists"
+        errors.email = "Email already exists";
         return errors;
     }
 

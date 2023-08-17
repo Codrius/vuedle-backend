@@ -1,12 +1,20 @@
 const express = require("express");
-const mongoose = require("mongoose");
 const initializeRoutes = require("./routes/index.js");
+const initializeServer = require("./initializeserver.js");
+const initializeMongo = require("./initializemongo.js");
+const setCors = require("./setcors.js");
+require('dotenv').config();
 const app = express();
-const PORT = 4000;
+const PORT = process.env.PORT;
 
-mongoose.connect("mongodb+srv://vuedleAdmin:vuedlePass@cluster0.qhplnvq.mongodb.net/vuedle");
-mongoose.connection.once("open", () => {
-    console.log("Mongoose connected to mongo!")
-}).on("error", (error) => { console.log(error); });
+// Set up cors headers
+setCors(app);
 
+// Connect to MongoDB
+initializeMongo();
+
+// Initialize all of the routes inside of index.js
 initializeRoutes(app, PORT);
+
+// Start the server
+initializeServer(app, PORT);
