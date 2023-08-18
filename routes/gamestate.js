@@ -1,8 +1,13 @@
-const gamestatepost = require("../middleware/gamestatepost.js");
+const gameController = require("../middleware/gamecontroller.js");
 
-function gamestate(app) {
-    app.post("/gamestate", gamestatepost)
-    console.log("Gamestate loaded");
+function save(app) {
+    app.post("/save", gameController.savePost);
+    console.log("/Save loaded");
 }
 
-module.exports = gamestate;
+function load(app) {
+    app.post("/load", gameController.loadPost);
+    console.log("/Load loaded");
+}
+
+module.exports = { save, load };

@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-async function initializeMongo() {
+function initializeMongo() {
     mongoose.connect(process.env.MONGO_LOCATION);
     mongoose.connection.syncIndexes();
     mongoose.connection.once("open", () => {

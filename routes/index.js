@@ -1,13 +1,13 @@
 const express = require("express");
-const { login, register } = require("./auth");
-const gamestate = require("./gamestate.js");
+const { login, register } = require("./auth.js");
+const { save, load } = require("./gamestate.js");
 
-function initializeRoutes(app, PORT) {
+function initializeRoutes(app) {
     app.use(express.json());
-
     register(app);
     login(app);
-    gamestate(app);
+    save(app);
+    load(app);
 };
 
 module.exports = initializeRoutes;
