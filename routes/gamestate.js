@@ -1,12 +1,13 @@
+const { requireLoggedIn } = require("../middleware/authcontroller.js");
 const gameController = require("../middleware/gamecontroller.js");
 
 function save(app) {
-    app.post("/save", gameController.savePost);
+    app.post("/save", requireLoggedIn, gameController.savePost);
     console.log("/Save loaded");
 }
 
 function load(app) {
-    app.post("/load", gameController.loadPost);
+    app.post("/load", requireLoggedIn, gameController.loadPost);
     console.log("/Load loaded");
 }
 

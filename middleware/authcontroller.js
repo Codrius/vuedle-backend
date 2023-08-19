@@ -6,7 +6,7 @@ const crypto = require("crypto");
 const JWT_AGE = 1800; // 30 minutes in seconds
 
 // Define the function to create JWT tokens
-function createJwt(id, addRefresh) {
+function createJwt(id) {
     return jwt.sign({ id }, process.env.ACCESS_TOKEN_SECRET, {
         expiresIn: JWT_AGE
     });
@@ -15,6 +15,18 @@ function createJwt(id, addRefresh) {
 // Define the function to create refresh tokens
 function createRefreshToken() {
     return crypto.randomBytes(32).toString('hex');
+}
+
+// Let a route require that a user be logged in to access it, and then attach the logged in user to the request
+async function requireLoggedIn(req, res, next) {
+    try {
+        const decodedToken = jwt.verify(req.headers.authorization, process.env.ACCESS_TOKEN_SECRET);
+        req.user = await User.findById(decodedToken.id);
+        next();
+    } catch (error) {
+        console.log(error);
+        res.sendStatus(400);
+    }
 }
 
 // Define the register post function for use in auth routes
@@ -54,4 +66,4 @@ async function loginPost(req, res) {
     }
 }
 
-module.exports = { loginPost, registerPost };
+module.exports = { loginPost, registerPost, requireLoggedIn };

@@ -11,11 +11,13 @@ const GameStateSchema = new Schema({
 });
 
 // Define static function to find corresponding gamestate
-GameStateSchema.statics.findGame = async function (_id) {
+GameStateSchema.statics.getStateById = async function (_id) {
     const game = await this.findOne({ _id });
-    console.log("This is the game >>> " + game)
     if (game) {
-        return game;
+        const state = { ...game._doc };
+        delete state._id;
+        delete state.__v
+        return state;
     }
     throw Error("Could not find game")
 }
