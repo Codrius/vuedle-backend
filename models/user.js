@@ -28,6 +28,9 @@ const UserSchema = new Schema({
 
 // Before saving a new user to mongo, hash their password
 UserSchema.pre("save", async function (next) {
+    if (!this.isModified('password')) {
+        return next();
+    }
     const salt = await bcrypt.genSalt();
     this.password = await bcrypt.hash(this.password, salt);
     next();
