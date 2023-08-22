@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const GameStateSchema = new Schema({
-    _id: { type: mongoose.Schema.Types.ObjectId, require: true },
+    _id: { type: mongoose.Schema.Types.ObjectId, require: true }, // I manually define ID to keep it consistent with user ID
     currency: { type: Number, require: true },
     clickUpgrades: { type: Number, require: true },
     idleUpgrades: { type: Number, require: true },

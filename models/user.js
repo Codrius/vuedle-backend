@@ -26,7 +26,7 @@ const UserSchema = new Schema({
     }
 });
 
-// Before saving a new user to mongo, hash their password
+// Before registering a new user, hash their password
 UserSchema.pre("save", async function (next) {
     if (!this.isModified('password')) {
         return next();
