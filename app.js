@@ -14,7 +14,7 @@ setCors(app);
 initializeRoutes(app);
 
 // Connect to MongoDB
-initializeMongo()
+initializeMongo();
 
 // Start Server
 initializeServer(app, PORT);

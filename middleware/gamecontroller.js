@@ -13,6 +13,7 @@ async function savePost(req, res) {
     }
 }
 
+// Handle post requests to the load route
 async function loadPost(req, res) {
     try {
         const state = await GameState.getStateById(req.user._id);

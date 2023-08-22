@@ -1,6 +1,6 @@
 const cors = require('cors');
 
-// Allow my locally hosted front end to make post requests to my API
+// Allow cross domain requests
 function setCors(app) {
     const corsOptions = {
         origin: true,
