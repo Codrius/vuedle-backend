@@ -45,8 +45,8 @@ function user(error) {
     }
 
     // If the username is > 12 characters, return error
-    if (error.message.includes("Please enter a valid email")) {
-        errors.email = "Please enter a valid email";
+    if (error.message.includes("Maximum username length is 12 characters")) {
+        errors.username = "Maximum username length is 12 characters";
         return errors;
     }
 
