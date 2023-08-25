@@ -71,7 +71,7 @@ async function refreshPost(req, res) {
             const newJwt = createJwt(id);
             const newRefreshToken = createRefreshToken();
             user.refreshToken = newRefreshToken;
-            user.save();
+            await user.save();
             res.status(200).json({ jwtToken: newJwt, refreshToken: newRefreshToken });
         } else {
             console.log("Invalid refresh token");
