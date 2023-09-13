@@ -34,6 +34,7 @@ async function registerPost(req, res) {
         const user = await User.create({ email, username, password, refreshToken });
         GameState.create({  // Create a default game state upon user registration
             _id: user._id,
+            username,
             currency: 0,
             clickUpgrades: 0,
             idleUpgrades: 0,
