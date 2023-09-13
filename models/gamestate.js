@@ -8,7 +8,8 @@ const GameStateSchema = new Schema({
     clickUpgrades: { type: Number, require: true },
     idleUpgrades: { type: Number, require: true },
     clickMultiplier: { type: Number, require: true },
-    idleMultiplier: { type: Number, require: true }
+    idleMultiplier: { type: Number, require: true },
+    combinedMultiplier: { type: Number, require: true }
 });
 
 // Define static function to find corresponding gamestate

@@ -39,7 +39,8 @@ async function registerPost(req, res) {
             clickUpgrades: 0,
             idleUpgrades: 0,
             clickMultiplier: 1,
-            idleMultiplier: 1
+            idleMultiplier: 1,
+            combinedMultiplier: 2,
         })
         const jwtToken = createJwt(user._id);
         res.status(201).json({ refreshToken, jwtToken, id: user._id });
